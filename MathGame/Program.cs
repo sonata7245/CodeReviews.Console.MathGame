@@ -65,16 +65,24 @@ void CreateNewRound(Game game)
     int numQuestions;
     string operand;
 
-    Console.WriteLine("Enter the number of questions you want to answer");
-    numQuestions = int.Parse(Console.ReadLine());
+    Console.WriteLine("Enter the number of questions you want to answer, you must enter a number 5 or greater.");
+    do
+    {
+        numQuestions = int.Parse(Console.ReadLine());
+    } while (numQuestions < 5);
 
     Console.WriteLine("Enter the operand for the questions you want to answer");
-    operand = Console.ReadLine();
+    Console.WriteLine("Please enter +, -, *, or /");
+
+    do
+    {
+        operand = Console.ReadLine();
+    } while (operand is not ("+" or "-" or "*" or "/"));
 
     game.NewRound(numQuestions, operand);
 }
 
-//create menu that allows user to play new round or view past rounds
+
 class Game
 {
     public Round round { get; private set; }
@@ -178,7 +186,7 @@ class Question
             "+" => firstNum + secondNum,
             "-" => firstNum - secondNum,
             "*" => firstNum * secondNum,
-            "/" => divisionAnswer(firstNum, secondNum), //Guard against division by 0
+            "/" => divisionAnswer(firstNum, secondNum),
             _ => 0,
         };
     }
